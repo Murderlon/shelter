@@ -1,26 +1,26 @@
-'use strict'
+'use strict';
 
-exports.description = description
-exports.plural = plural
+exports.description = description;
+exports.plural = plural;
 
 function description(data) {
-  var value
-  var classifications = []
+  var value;
+  var classifications = [];
 
   if (data.description) {
-    return data.description
+    return data.description;
   }
 
-  value = data.name + ' is a ' + data.primaryColor
+  value = data.name + ' is a ' + data.primaryColor;
 
   if (data.secondaryColor) {
-    value += ' (with ' + data.secondaryColor + ')'
+    value += ' (with ' + data.secondaryColor + ')';
   }
 
-  classifications.push(data.sex)
+  classifications.push(data.sex);
 
   if ('length' in data && data.length !== 'medium') {
-    classifications.push(data.length)
+    classifications.push(data.length);
   }
 
   if (data.size && data.size !== 'medium') {
@@ -28,23 +28,23 @@ function description(data) {
       (data.size === 'small' && data.length === 'long') ||
       (data.size === 'large' && data.length === 'short')
     ) {
-      classifications[classifications.length - 1] += ' (but ' + data.size + ')'
+      classifications[classifications.length - 1] += ' (but ' + data.size + ')';
     } else {
-      classifications.push(data.size)
+      classifications.push(data.size);
     }
   }
 
   if (classifications.length === 1) {
-    value += ' ' + classifications[0]
+    value += ' ' + classifications[0];
   } else {
-    value += ', ' + classifications.join(', ')
+    value += ', ' + classifications.join(', ');
   }
 
-  value += ' ' + data.type
+  value += ' ' + data.type;
 
-  return value
+  return value;
 }
 
 function plural(word, value) {
-  return value === 1 ? word : word + 's'
+  return value === 1 ? word : word + 's';
 }

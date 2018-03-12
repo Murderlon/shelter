@@ -7,10 +7,11 @@
 <link rel=stylesheet href=/index.css>
 <main>
   <h1>Shelter</h1>
+  <a href="/upload">Upload new animal</a>
   <div class=grid>
     <% data.forEach(function (entity) { %>
     <article class=animal>
-      <a class="frame block-link" href="/<%= entity.id %>">
+      <a class="frame block-link" href="/animal/<%= entity.id %>">
         <figure class="frame-image frame-image-reveal">
           <img src="/image/<%= entity.id %>.jpg" alt>
           <figcaption>

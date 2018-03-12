@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang=en>
+<meta charset=utf8>
+<meta name=viewport content=width=device-width,initial-scale=1>
+<link rel="shortcut icon" type=image/x-icon href=data:image/x-icon;,>
+<title>Upload</title>
+<link rel=stylesheet href=/index.css>
+<main class=container>
+  <form action="/upload" method="POST">
+    <label>
+      Name*
+      <input type="text" name="name" required>
+    </label>
+    <label>
+      Animal type*
+      <select name="type" required>
+        <option value="dog">Dog</option>
+        <option value="cat">Cat</option>
+        <option value="rabbit">Rabbit</option>
+      </select>
+    </label>
+    <label>
+      Description
+      <textarea name="description" cols="30"></textarea>
+    </label>
+    <label>
+      Animal Shelter*
+      <select name="place" required>
+        <option value="Brooklyn Animal Care Center">Brooklyn Animal Care Center</option>
+        <option value="Manhattan Animal Care Center">Manhattan Animal Care Center</option>
+        <option value="Staten Island Animal Care Center">Staten Island Animal Care Center</option>
+      </select>
+    </label>
+    <label>
+      Date of intake*
+      <input type="date" name="intake" required>
+    </label>
+    <fieldset>
+      <legend>Sex*</legend>
+      <label>
+        <input type="radio" name="sex" value="female" required> Female
+      </label>
+      <label>
+        <input type="radio" name="sex" value="male" required> Male
+      </label>
+    </fieldset>
+    <label>
+      Age in years*
+      <input type="number" name="age" required>
+    </label>
+    <label>
+      Weight
+      <input type="number" name="weight">
+    </label>
+    <fieldset>
+      <legend>Size</legend>
+      <label>
+        <input type="radio" name="size" value="small"> Small
+      </label>
+      <label>
+        <input type="radio" name="size" value="medium"> Medium
+      </label>
+      <label>
+        <input type="radio" name="size" value="large"> Large
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Length</legend>
+      <label>
+        <input type="radio" name="length" value="short"> Short
+      </label>
+      <label>
+        <input type="radio" name="length" value="medium"> Medium
+      </label>
+      <label>
+        <input type="radio" name="length" value="long"> Long
+      </label>
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Coat</legend>
+      <label>
+        <input type="radio" name="coat" value="smooth"> Smooth
+      </label>
+      <label>
+        <input type="radio" name="coat" value="thick"> Thick
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Vaccinated*</legend>
+      <label>
+        <input type="radio" name="vaccinated" value="1" required> Yes
+      </label>
+      <label>
+        <input type="radio" name="vaccinated" value="0" required> No
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Declawed</legend>
+      <label>
+        <input type="radio" name="declawed" value="1"> Yes
+      </label>
+      <label>
+        <input type="radio" name="declawed" value="0"> No
+      </label>
+    </fieldset>
+    <fieldset>
+      <legend>Colours</legend>
+      <label>Primary Color*
+        <input type="text" name="primaryColor" required>
+      </label>
+      <label>Secondary Color
+        <input type="text" name="secondaryColor">
+      </label>
+    </fieldset>
+    <input type="submit" value="Add animal">
+  </form>
+</main>
+<script src=/index.js></script>
