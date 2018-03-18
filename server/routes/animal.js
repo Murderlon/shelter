@@ -13,7 +13,7 @@ router.get('/:id', (req, res) => {
   try {
     if (db.has(req.params.id)) {
       const data = {
-        ...{ data: db.get(req.params.id) },
+        data: db.get(req.params.id),
         ...helpers
       };
       res.format({
@@ -22,15 +22,13 @@ router.get('/:id', (req, res) => {
       });
     } else {
       const err = {
-        ...{
-          errors: [
-            {
-              id: 404,
-              title: statusCode[404],
-              detail: statusCode[404]
-            }
-          ]
-        },
+        errors: [
+          {
+            id: 404,
+            title: statusCode[404],
+            detail: statusCode[404]
+          }
+        ],
         ...helpers
       };
       res.format({

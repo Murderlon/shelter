@@ -2,6 +2,7 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
+const statusCode = require('node-status-codes');
 
 const db = require('../db');
 const helpers = require('./helpers');
@@ -22,7 +23,7 @@ module.exports = express()
   .listen(1902, console.log('listening on http:localhost:1902'));
 
 function index(req, res) {
-  const data = { ...{ data: db.all() }, ...helpers };
+  const data = { data: db.all(), ...helpers };
   res.format({
     json: () => res.json(data),
     html: () => res.render('list', data)
@@ -30,5 +31,18 @@ function index(req, res) {
 }
 
 function notFound(req, res) {
-  res.redirect('/');
+  const err = {
+    errors: [
+      {
+        id: 404,
+        title: statusCode[404],
+        detail: statusCode[404]
+      }
+    ],
+    ...helpers
+  };
+  res.format({
+    json: () => res.json(err),
+    html: () => res.render('error', err)
+  });
 }
