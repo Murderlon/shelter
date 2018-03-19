@@ -1,15 +1,15 @@
 const express = require('express');
 const statusCode = require('node-status-codes');
 
-const db = require('../../db');
+const pool = require('../mysql');
 // eslint-disable-next-line new-cap
 const router = express.Router();
 
 router.get('/', (req, res) => res.render('upload'));
 
-router.post('/', (req, res) => {
+router.post('/', (req, res, next) => {
   const data = req.body;
-  const normalized = Object.keys(req.body).reduce((acc, key) => {
+  const normalized = Object.keys(data).reduce((acc, key) => {
     switch (key) {
       case 'age':
       case 'weight':
@@ -27,8 +27,14 @@ router.post('/', (req, res) => {
     return acc;
   }, {});
   try {
-    const { id } = db.add(normalized);
-    res.redirect(`/animal/${id}`);
+    const done = (err, { insertId }) =>
+      err ? next(err) : res.redirect(`/animal/${insertId}`);
+    pool.getConnection((err, connection) => {
+      connection.query('INSERT INTO animal SET ?', normalized, done);
+      connection.release();
+      // Handle error after the release.
+      if (err) throw err;
+    });
   } catch (err) {
     res.status(422).send(statusCode[422]);
   }

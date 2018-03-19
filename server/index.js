@@ -1,10 +1,11 @@
 'use strict';
 
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const statusCode = require('node-status-codes');
 
-const db = require('../db');
+const pool = require('./mysql');
 const helpers = require('./helpers');
 const animal = require('./routes/animal');
 const upload = require('./routes/upload');
@@ -22,12 +23,24 @@ module.exports = express()
   .get('*', notFound)
   .listen(1902, console.log('listening on http:localhost:1902'));
 
-function index(req, res) {
-  const data = { data: db.all(), ...helpers };
-  res.format({
-    json: () => res.json(data),
-    html: () => res.render('list', data)
+function index(req, res, next) {
+  pool.getConnection((err, connection) => {
+    connection.query('SELECT * from animal', done);
+    connection.release();
+    // Handle error after the release.
+    if (err) throw err;
   });
+
+  function done(err, data) {
+    if (err) {
+      next(err);
+    } else {
+      res.format({
+        json: () => res.json({ data, ...helpers }),
+        html: () => res.render('list', { data, ...helpers })
+      });
+    }
+  }
 }
 
 function notFound(req, res) {
@@ -38,8 +51,7 @@ function notFound(req, res) {
         title: statusCode[404],
         detail: statusCode[404]
       }
-    ],
-    ...helpers
+    ]
   };
   res.format({
     json: () => res.json(err),
